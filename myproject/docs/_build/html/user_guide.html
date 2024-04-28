@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>User Guide &#8212; Notes  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=12dfc556" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Welcome to Notes’s documentation!" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="user-guide">
+<span id="id1"></span><h1>User Guide<a class="headerlink" href="#user-guide" title="Link to this heading">¶</a></h1>
+<p>This guide will help you get started with our Notes API. It covers the basics of creating an account, obtaining access, and interacting with the API endpoints.</p>
+<section id="registering-a-new-user">
+<h2>Registering a New User<a class="headerlink" href="#registering-a-new-user" title="Link to this heading">¶</a></h2>
+<p>To register as a new user, you will need to send a POST request to the <cite>/auth/users/</cite> endpoint with a JSON payload that includes your desired username and password.</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;username&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your_username&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your_password&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="logging-in">
+<h2>Logging In<a class="headerlink" href="#logging-in" title="Link to this heading">¶</a></h2>
+<p>Once you have registered, you can log in by sending a POST request to the <cite>/auth/token/login/</cite> endpoint with the same username and password used during registration.</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;username&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your_username&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your_password&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>If your credentials are correct, you will receive a response containing your authentication token.</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;auth_token&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your_token_here&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="using-the-api">
+<h2>Using the API<a class="headerlink" href="#using-the-api" title="Link to this heading">¶</a></h2>
+<p>With the authentication token, you can now interact with the API.</p>
+<ul class="simple">
+<li><p>To <strong>create</strong> a note, send a POST request to <cite>/notes/create/</cite> with the note content. Include the token in the <cite>Authorization</cite> header.</p></li>
+</ul>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Note Title&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Note Content&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>To <strong>retrieve</strong> all notes, send a GET request to <cite>/notes/</cite>. No data payload is required.</p></li>
+<li><p>To <strong>retrieve</strong>, <strong>update</strong>, or <strong>delete</strong> a specific note, send a GET, PUT, or DELETE request respectively to <cite>/notes/(note_id)/</cite>. For PUT requests, include the new note content in the request body.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can only update or delete notes that you have created.</p>
+</div>
+<p>Remember to always include the <cite>Authorization: Token &lt;your_token_here&gt;</cite> header in your requests after logging in.</p>
+</section>
+<section id="logging-out">
+<h2>Logging Out<a class="headerlink" href="#logging-out" title="Link to this heading">¶</a></h2>
+<p>To log out and invalidate your current token, send a POST request to <cite>/auth/token/logout/</cite>. This action will require your current authentication token in the header.</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Notes</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">User Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#registering-a-new-user">Registering a New User</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#logging-in">Logging In</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-the-api">Using the API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#logging-out">Logging Out</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Welcome to Notes’s documentation!</a></li>
+  </ul></li>
+</ul>
+</div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2024, Ilya Petrovanov.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.3.7</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      
+      |
+      <a href="_sources/user_guide.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
